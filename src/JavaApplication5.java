@@ -200,14 +200,31 @@ public class JavaApplication5{
     
     public static boolean full_house_checker(String[] a){
         Boolean b1 = false;
-        
-       boolean checker1 = hand_pair_checker(a);
-       boolean checker2 = three_of_a_kind_checker(a);
        
-      if(checker1 && checker2){
-         b1 = true;
-      }
-      return b1;     
+        String[] arr = new String[5];
+        for(int i=0;i<a.length;i++){
+           String val = a[i]; 
+           String[] splitter = val.split(" ");
+           arr[i]= splitter[0];
+        }
+   
+        int [] count_arr = new int [5];
+        for(int i = 0;i<arr.length;i++){
+            int count = 0;
+            for (int j= 0; j < 5; j++){
+                boolean val = arr[i].equals(arr[j]);
+                if(val){
+                    count++;
+                }
+                
+            }
+            count_arr[i] = count;
+        }
+        Arrays.sort(count_arr);
+        if(count_arr[0] == 2 && count_arr[1] == 2 && count_arr[2] == 3 &&count_arr[3] == 3 && count_arr[4] == 3){
+            b1 = true;
+        }
+        return b1;     
     }
     public static boolean two_pair_checker(String[] a){
         Boolean b1 = false;
@@ -305,7 +322,7 @@ public class JavaApplication5{
             System.out.println(Arrays.toString(a) + " is a Straight Flush");
         }else if(!checker2 &&!checker3 && !checker4 && !checker5 && !checker9 &&!checker7 && !checker8 && !checker6){
             System.out.println(Arrays.toString(a) + " is a Four of a Kind");
-        }else if(checker2 && checker3 && !checker4 && !checker5 && !checker9 && !checker8 && !checker6 && !checker){
+        }else if(checker7){
             System.out.println(Arrays.toString(a) + " is a Full house");
         }else if(!checker2 &&!checker3 && !checker7 && !checker5 && !checker9 && !checker8 && !checker6 && !checker){
            System.out.println(Arrays.toString(a) + " is a Flush");
