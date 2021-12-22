@@ -5,29 +5,53 @@ import java.util.stream.*;
 public class JavaApplication5{
     
     public static void main(String args[]) {
-        int[] inputArray = {10,36,23,49,6,1,16,2,3,4,28,15,11,24,12,9,21,34,8,5,7,20,33,14,27,
-            40,0,17,29,41,44,43,45,46,47,37,25,22,35,19,26,30,32,31,38,50,51,39,42,48,13,18};
+        String studentName = "p4nic";
+        int[]deck = new int[52];
+        String[] suits= {"Spades","Hearts","Clubs","Diamonds"};
+        String [] ranks = {"A","2","3","4","5","6","7","8","9",
+            "10","J","Q","K"};
+        String[] pokerHands = {
+        "Royal flush",
+        "Straight flush",
+        "Four of a kind",
+        "Full house",
+        "Flush",
+        "Straight",
+        "Three of a kind",
+        "Two Pair",
+        "Pair",
+        "High Card",
+        "next none yet"
+        };
+        System.out.println("Submitted by: "+studentName);
+        Scanner input = new Scanner (System.in);
+        System.out.println("\n Enter your 52 number: ");
+        for(int i=0;i<deck.length;i++){
+            deck[i]=input.nextInt();
+        }
+
+        System.out.println(Arrays.toString(deck)+"\n\n");
         int chunkSize = 5;
         
-        String[] data = {"A of spades","2 of spades","3 of spades","4 of spades","5 of spades","6 of spades","7 of spades","8 of spades"
-        ,"9 of spades","10 of spades","J of spades","Q of spades","K of spades",
-        "A of hearts","2 of hearts","3 of hearts","4 of hearts","5 of hearts","6 of hearts","7 of hearts","8 of hearts"
-        ,"9 of hearts","10 of hearts","J of hearts","Q of hearts","K of hearts",
-        "A of clubs","2 of clubs","3 of clubs","4 of clubs","5 of clubs","6 of clubs","7 of clubs","8 of clubs"
-        ,"9 of clubs","10 of clubs","J of clubs","Q of clubs","K of clubs",
-        "A of diamonds","2 of diamonds","3 of diamonds","4 of diamonds","5 of diamonds","6 of diamonds","7 of diamonds","8 of diamonds"
-        ,"9 of diamonds","10 of diamonds","J of diamonds","Q of diamonds","K of diamonds"};
+        String[] data = new String [52];
+        int y = 0;
+        for(int i = 0; i<4;i++){
+            for(int j=0;j<13;j++){
+                data[y] = ranks[j] + " of " + suits[i];
+                y++;
+            }
+        }
         
         String [] final_array = new String[52];
         for(int i = 0; i<final_array.length;i++){
-            final_array[i] = data[inputArray[i]];
+            final_array[i] = data[deck[i]];
         }
          
         String[][] output = splitArray(final_array, chunkSize);
             for (String[] x : output){
                 if(x.length==5){
                 //System.out.println();
-                print_data(x);
+                print_data(x,pokerHands);
             }
         }
         
@@ -304,7 +328,7 @@ public class JavaApplication5{
       }
       return b1;     
     }
-    public static void print_data(String [] a){
+    public static void print_data(String [] a , String[] b){
         
         boolean checker=four_of_a_kind_checker(a);
         boolean checker2=three_of_a_kind_checker(a);
@@ -317,27 +341,27 @@ public class JavaApplication5{
         boolean checker9=royal_flush_checker(a);
         boolean checker10 = high_card_checker(a);
         if(!checker && !checker2 &&!checker3 && !checker4 && !checker5 && !checker6 &&!checker7 && !checker8 ){
-            System.out.println(Arrays.toString(a) + " is a Royal Flush");
+            System.out.println(Arrays.toString(a) + " is a "+ b[0]);
         }else if(!checker && !checker2 &&!checker3 && checker4 && checker5 && !checker9 &&!checker7 && !checker8 && checker6 ){
-            System.out.println(Arrays.toString(a) + " is a Straight Flush");
+            System.out.println(Arrays.toString(a) + " is a " + b[1]);
         }else if(!checker2 &&!checker3 && !checker4 && !checker5 && !checker9 &&!checker7 && !checker8 && !checker6){
-            System.out.println(Arrays.toString(a) + " is a Four of a Kind");
+            System.out.println(Arrays.toString(a) +  " is a "+ b[2]);
         }else if(checker7){
-            System.out.println(Arrays.toString(a) + " is a Full house");
+            System.out.println(Arrays.toString(a) +  " is a "+ b[3]);
         }else if(!checker2 &&!checker3 && !checker7 && !checker5 && !checker9 && !checker8 && !checker6 && !checker){
-           System.out.println(Arrays.toString(a) + " is a Flush");
+           System.out.println(Arrays.toString(a) +  " is a "+ b[4]);
         }else if(!checker2 &&!checker3 && !checker7 && !checker4 && !checker9 && !checker8 && !checker6 && !checker){
-           System.out.println(Arrays.toString(a) + " is a Straight");
+           System.out.println(Arrays.toString(a) +  " is a "+ b[5]);
         }else if(!checker5 &&!checker3 && !checker7 && !checker4 && !checker9 && !checker8 && !checker6 && !checker){
-           System.out.println(Arrays.toString(a) + " is a three of a Kind");
+           System.out.println(Arrays.toString(a) +  " is a "+ b[6]);
         }else if(!checker5 && checker3 && !checker7 && !checker4 && !checker9 && !checker2 && !checker6 && !checker && checker8){
-           System.out.println(Arrays.toString(a) + " is a two pair");
+           System.out.println(Arrays.toString(a) +  " is a "+ b[7]);
         }else if(!checker5 &&!checker8 && !checker7 && !checker4 && !checker9 && !checker2 && !checker6 && !checker){
-           System.out.println(Arrays.toString(a) + " is a pair");
+           System.out.println(Arrays.toString(a) +  " is a "+ b[8]);
         }else if(checker10){
-           System.out.println(Arrays.toString(a) + " is a High card");
+           System.out.println(Arrays.toString(a) +  " is a "+ b[9]);
         }else{
-            System.out.println(Arrays.toString(a) + " Unknown rank");
+            System.out.println(Arrays.toString(a) +  " is a "+ b[10]);
         }
    
     }
